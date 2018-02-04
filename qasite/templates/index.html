@@ -1,50 +1,47 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta charset="utf-8"/>
         <title>Slim 3</title>
-        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-        <style>
-            body {
-                margin: 50px 0 0 0;
-                padding: 0;
-                width: 100%;
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                text-align: center;
-                color: #aaa;
-                font-size: 18px;
-            }
-
-            h1 {
-                color: #719e40;
-                letter-spacing: -3px;
-                font-family: 'Lato', sans-serif;
-                font-size: 100px;
-                font-weight: 200;
-                margin-bottom: 0;
-            }
-        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     </head>
     <body>
-        <h1>QAサイト</h1>
-        <ul>
-            <form method="post" action="/question">
-                <input type="text" name="question"></input>
-                <button type="submit">質問する</button>
+        <nav class="navbar navbar-inverse bg-inverse">
+            <div class="navbar-brand">QAサイト</div>
+        </nav>
+        <div class="container">
+            <form class="row" method="post" action="/question">
+                <div class="col-sm-9" style="padding: 15px;">
+                    <input type="text" class="form-control input-sm" name="question" placeholder="質問を入力してください。" size="100">
+                </div>
+                <div class="col-sm-3" style="padding: 15px;">
+                    <button type="submit" class="btn btn-primary">質問する</button>
+                </div>
             </form>
             {% for item in view_value %}
-            <li>{{ item.q }}<br>
-                <form method="post" action="/answer?q={{ item.q_id }}">
-                    <input type="text" name="answer"></input>
-                    <button type="submit">回答する</button>
+            <div class="card" style="margin: 15px;">
+                <div class="card-header">質問{{ item.q_id }}：{{ item.q }}</div>
+                <div class="row" style="margin: 5px;">
+                <form class="row" method="post" action="/answer?q={{ item.q_id }}">
+                    <div class="col-sm-9" style="padding: 15px;">
+                        <input type="text" class="form-control input-sm" name="answer" placeholder="回答を入力してください。" size="80">
+                    </div>
+                    <div class="col-sm-3" style="padding: 15px;">
+                        <button type="submit" class="btn btn-primary">回答する</button>
+                    </div>
                 </form>
-                <ul>
-                    {% for a in item.a %}
-                    <li>{{ a }}</li>
+                </div>
+                <ul class="list-group list-group-flush">
+	            {% for a in item.a %}
+                    <li class="list-group-item">{{ a }}</li>
                     {% endfor %}
                 </ul>
-            </li>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     </body>
 </html>
