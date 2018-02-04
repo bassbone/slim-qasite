@@ -8,6 +8,7 @@
     with_items:
       - git
       - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+      - unzip
 
   - name: install php
     yum:
@@ -16,6 +17,12 @@
       state: present
     with_items:
       - php
+      - php-devel
+      - php-mbstring
+      - php-pdo
+      - php-gd
+      - php-xml
+      - php-mcrypt
 
   - name: get composer
     get_url:
@@ -24,7 +31,11 @@
 
   - name: install composer
     shell: chdir=/tmp php composer-setup.php
+    args:
+      creates: /bin/composer
 
   - name: move composer.phar
     shell: mv /tmp/composer.phar /bin/composer
+    args:
+      creates: /bin/composer
 
