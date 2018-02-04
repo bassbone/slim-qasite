@@ -1,6 +1,13 @@
 
 - hosts: all
   tasks:
+  - name: stop firewalld
+    systemd:
+      name: firewalld.service
+      state: stopped
+      daemon_reload: no
+      enabled: no
+
   - name: yum install
     yum:
       name: "{{ item }}"
