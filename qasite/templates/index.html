@@ -26,13 +26,25 @@
         </style>
     </head>
     <body>
-        <h1>Slim</h1>
-        <div>a microframework for PHP</div>
-
-        <?php if (isset($name)) : ?>
-            <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
-        <?php else: ?>
-            <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
-        <?php endif; ?>
+        <h1>QAサイト</h1>
+        <ul>
+            <form method="post" action="/question">
+                <input type="text" name="question"></input>
+                <button type="submit">質問する</button>
+            </form>
+            {% for item in view_value %}
+            <li>{{ item.q }}<br>
+                <form method="post" action="/answer?q={{ item.q_id }}">
+                    <input type="text" name="answer"></input>
+                    <button type="submit">回答する</button>
+                </form>
+                <ul>
+                    {% for a in item.a %}
+                    <li>{{ a }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
     </body>
 </html>

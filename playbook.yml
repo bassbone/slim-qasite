@@ -46,3 +46,15 @@
     args:
       creates: /bin/composer
 
+  - name: install redis
+    yum:
+      name: redis
+      state: present
+
+  - name: start redis-server
+    systemd:
+      name: redis.service
+      state: started
+      daemon_reload: yes
+      enabled: yes
+
